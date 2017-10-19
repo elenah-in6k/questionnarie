@@ -1,7 +1,7 @@
 'use strict';
 angular.module('myApp', [])
     .controller('mainCtrl',  function ($scope, $rootScope, $http) {
-        // $scope.getAll();
+        $scope.getAll();
         $scope.getAll = function (){
             $http({
                 method: 'GET',
@@ -30,7 +30,8 @@ angular.module('myApp', [])
                 url: '/findByTagsContains',
                 data: {tags:tag}
             }).then(function successCallback(response) {
-                console.log(response)
+                console.log(response);
+                $scope.searchResults = response;
             }, function errorCallback(response) {
             });
         };

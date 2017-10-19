@@ -1,10 +1,46 @@
 <div>
+    <div>
+        <h3>Add question:</h3>
+        <input type="text" placeholder="Question" id="question" ng-model="question.question">
+        <input type="text" placeholder="Answer" id="answer" ng-model="question.answer">
+        <input type="text" placeholder="Tags" id="tags" ng-model="question.tags">
+        <button ng-click="save(question)">Save</button>
+    </div>
+    <div>
+        <h3>Search question:</h3>
+        <input type="text" placeholder="Tags" id="tag" ng-model="tag">
+        <button ng-click="getByTag(tag)">Search question</button>
 
+        <h3>Result</h3>
+        <table>
+            <tr>
+                <td>question</td>
+                <td>answer</td>
+                <td>tags</td>
+            </tr>
 
-    All questions
-    <table>
-        <tr>
-            <td></td>
-        </tr>
-    </table>
+            <tr ng-repeat="quest in searchResults">
+                <td>{{quest.question}}</td>
+                <td>{{quest.answer}}</td>
+                <td>{{quest.tags}}</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h3>All questions</h3>
+        <table>
+            <tr>
+                <td>question</td>
+                <td>answer</td>
+                <td>tags</td>
+            </tr>
+
+            <tr ng-repeat="quest in questions">
+                <td>{{quest.question}}</td>
+                <td>{{quest.answer}}</td>
+                <td>{{quest.tags}}</td>
+            </tr>
+        </table>
+    </div>
+
 </div>
