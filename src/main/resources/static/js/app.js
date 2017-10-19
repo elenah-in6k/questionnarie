@@ -1,5 +1,5 @@
 'use strict';
-angular.module("myApp", ["ngRoute", "angularCharts"])
+angular.module("myApp", ["ngRoute"])
     .config( function ($routeProvider) {
         $routeProvider
             .when("/", {
