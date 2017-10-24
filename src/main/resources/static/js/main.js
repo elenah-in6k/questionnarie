@@ -1,38 +1,40 @@
 'use strict';
-angular.module('myApp', [])
-    .controller('mainCtrl',  function ($scope, $rootScope, $http) {
-        $scope.getAll();
-        $scope.getAll = function (){
+angular.module('myApp')
+    .controller('mainCtrl', function ($scope, $rootScope, $http) {
+        getAll();
+        $scope.getAll = getAll;
+        $scope.save = save;
+        $scope.getByTag = getByTag;
+
+
+        function getAll() {
             $http({
                 method: 'GET',
                 url: '/questions'
             }).then(function successCallback(response) {
-                    console.log(response);
+                console.log(response);
                 $scope.questions = response;
             }, function errorCallback(response) {
             });
-        };
+        }
 
-        $scope.save = function (quest){
-            $http({
-                method: 'POST',
-                url: '/questions',
-                data:quest
-            }).then(function successCallback(response) {
-                console.log(response)
-            }, function errorCallback(response) {
-            });
-        };
+        function save(quest) {
+            $http.post('/questions', quest)
+                .then(function (response) {
+                    console.log(response)
+                }, function (response) {
+                });
+        }
 
-        $scope.getByTag = function (tag){
+        function getByTag(tag) {
             $http({
                 method: 'GET',
                 url: '/findByTagsContains',
-                data: {tags:tag}
+                data: {tags: tag}
             }).then(function successCallback(response) {
                 console.log(response);
                 $scope.searchResults = response;
             }, function errorCallback(response) {
             });
-        };
+        }
     });

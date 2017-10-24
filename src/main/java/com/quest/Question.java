@@ -1,37 +1,28 @@
 package com.quest;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Question {
-
 	@Id
-	private String question;
-	private String answer;
-	private String tags;
+	@GeneratedValue
+	@JsonView({QuestionFull.class, QuestionWithAnswers.class})
+	public Long id;
 
-	public String getQuestion() {
-		return question;
-	}
+	@JsonView({QuestionFull.class, QuestionWithAnswers.class})
+	public String question;
 
-	public void setQuestion(String question) {
-		this.question = question;
-	}
+	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonView({QuestionFull.class, QuestionWithAnswers.class})
+	public Set<Answer> answers = new HashSet<>();
 
-	public String getAnswer() {
-		return answer;
-	}
+	@JsonView(QuestionFull.class)
+	public String tags;
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
+	public interface QuestionFull {}
+	public interface QuestionWithAnswers {}
 }
