@@ -5,6 +5,7 @@
         <input type="text" placeholder="Answer" id="answer" ng-model="question.answer">
         <input type="text" placeholder="Tags" id="tags" ng-model="question.tags">
         <button ng-click="save(question)">Save</button>
+
     </div>
     <div>
         <h3>Search question:</h3>
@@ -12,33 +13,52 @@
         <button ng-click="getByTag(tag)">Search question</button>
 
         <h3>Result</h3>
-        <table>
+        <table class="table table-striped">
             <tr>
                 <td>question</td>
-                <td>answer</td>
+                <td>answers / is correct?</td>
                 <td>tags</td>
             </tr>
 
             <tr ng-repeat="quest in searchResults">
                 <td>{{quest.question}}</td>
-                <td>{{quest.answer}}</td>
+                <td>
+                    <table>
+                        <tr ng-repeat="answer in quest.answers">
+                            <td>{{answer.body}}</td>
+                            <td>{{answer.isCorrect}}</td>
+                        </tr>
+                    </table></td>
                 <td>{{quest.tags}}</td>
             </tr>
         </table>
     </div>
     <div>
         <h3>All questions</h3>
-        <table>
+        <table class="table table-striped">
             <tr>
                 <td>question</td>
-                <td>answer</td>
+                <td>answers / is correct?</td>
                 <td>tags</td>
+                <td></td>
             </tr>
 
             <tr ng-repeat="quest in questions">
                 <td>{{quest.question}}</td>
-                <td>{{quest.answer}}</td>
+                <td>
+                    <table>
+                        <tr ng-repeat="answer in quest.answers">
+                            <td>{{answer.body}}</td>
+                            <td>{{answer.isCorrect}}</td>
+                            <td>
+                                <div class="btn btn-danger" ng-click="deleteAnswer(answer)">Delete</div>
+                            </td>
+                        </tr>
+                    </table></td>
                 <td>{{quest.tags}}</td>
+                <td>
+                    <div class="btn btn-danger" ng-click="deleteQuestion(quest)">Delete</div>
+                </td>
             </tr>
         </table>
     </div>
