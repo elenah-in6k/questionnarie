@@ -6,6 +6,10 @@ angular.module('myApp')
         $scope.getByTag = getByTag;
         $scope.deleteAnswer = deleteAnswer;
         $scope.deleteQuestion = deleteQuestion;
+        $scope.addAnswer = addAnswer;
+        $scope.updateIsCorrect = updateIsCorrect;
+        $scope.question = {};
+        $scope.question.answers = [{}];
 
         $scope.getAll();
 
@@ -19,9 +23,11 @@ angular.module('myApp')
         }
 
         function save(quest) {
+            console.log(quest);
             $http.post('/api/questions', quest)
                 .then(function (response) {
                     console.log(response);
+                    $scope.question = {};
                     $scope.getAll();
                 }, function (response) {
                 });
@@ -51,4 +57,17 @@ angular.module('myApp')
                 });
         }
 
+        function addAnswer(){
+            $scope.question.answers.push({});
+        }
+
+        function updateIsCorrect(index) {
+            if($scope.oneRight){
+                $scope.question.answers.forEach(function(currentValue, currentIndex){
+                    if (index!==currentIndex){
+                        currentValue.isCorrect="false";
+                    }
+                });
+            }
+        }
     });

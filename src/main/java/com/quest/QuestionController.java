@@ -22,6 +22,7 @@ class QuestionController {
 
 	@PostMapping
 	public void saveQuestion(@RequestBody Question question) {
+		question.answers.forEach(answ->answ.question=question);
 		 questionRepository.save(question);
 	}
 

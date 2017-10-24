@@ -1,16 +1,29 @@
 <div>
     <div>
         <h3>Add question:</h3>
-        <input type="text" placeholder="Question" id="question" ng-model="question.question">
-        <input type="text" placeholder="Answer" id="answer" ng-model="question.answer">
-        <input type="text" placeholder="Tags" id="tags" ng-model="question.tags">
-        <button ng-click="save(question)">Save</button>
+        <input class="form-control" type="text" placeholder="Question" id="question" ng-model="question.question">
+        <input class="form-control" type="text" placeholder="Tags" id="tags" ng-model="question.tags">
 
+        //TODO change to switcher
+        <div class="btn btn-info" ng-click="freeEntry=true;  oneRight=false; manyRight=false">Free entry</div>
+        <div class="btn btn-success" ng-click="oneRight=true; freeEntry=false; manyRight=false">One right option</div>
+        <div class="btn btn-warning" ng-click="manyRight=true; oneRight=false; freeEntry=false;">Many right options</div>
+<div id="answers" class="form-group">
+        <div ng-show="freeEntry||oneRight||manyRight" ng-repeat="ans in question.answers" class="form-inline">
+            <input class="form-control col-4"  type="text" placeholder="Answer" ng-model="ans.body">
+            <input  type="radio" id="isCorrect{{$index}}" ng-click="updateIsCorrect($index)"  ng-model="ans.isCorrect" value=true>
+            <label  for="isCorrect{{$index}}">Correct</label>
+            <input   type="radio"  id="isNotCorrect{{$index}}" ng-model="ans.isCorrect" value=false>
+            <label  for="isNotCorrect{{$index}}">Not correct</label>
+        </div>
+</div>
+        <div ng-show="oneRight||manyRight"><button class="btn btn-default" ng-click="addAnswer(question)">Add answer</button></div>
+        <button class="btn btn-default" ng-click="save(question)">Save</button>
     </div>
     <div>
         <h3>Search question:</h3>
-        <input type="text" placeholder="Tags" id="tag" ng-model="tag">
-        <button ng-click="getByTag(tag)">Search question</button>
+        <input class="form-control" type="text" placeholder="Tags" id="tag" ng-model="tag">
+        <button class="btn btn-default" ng-click="getByTag(tag)">Search question</button>
 
         <h3>Result</h3>
         <table class="table table-striped">
