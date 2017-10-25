@@ -20,6 +20,9 @@ public class Question {
 	@JsonView({QuestionFull.class, QuestionWithAnswers.class})
 	public Set<Answer> answers = new HashSet<>();
 
+	@JsonView({QuestionFull.class, QuestionWithAnswers.class})
+	public String type;
+
 	@JsonView(QuestionFull.class)
 	public String tags;
 

@@ -1,35 +1,63 @@
 <div>
-    <div>
+    <div class="jumbotron">
         <h3>Add question:</h3>
         <input class="form-control" type="text" placeholder="Question" id="question" ng-model="question.question">
         <input class="form-control" type="text" placeholder="Tags" id="tags" ng-model="question.tags">
 
-        //TODO change to switcher
-        <div class="btn btn-info" ng-click="freeEntry=true;  oneRight=false; manyRight=false">Free entry</div>
-        <div class="btn btn-success" ng-click="oneRight=true; freeEntry=false; manyRight=false">One right option</div>
-        <div class="btn btn-warning" ng-click="manyRight=true; oneRight=false; freeEntry=false;">Many right options</div>
-<div id="answers" class="form-group">
-        <div ng-show="freeEntry||oneRight||manyRight" ng-repeat="ans in question.answers" class="form-inline">
-            <input class="form-control col-4"  type="text" placeholder="Answer" ng-model="ans.body">
-            <input  type="radio" id="isCorrect{{$index}}" ng-click="updateIsCorrect($index)"  ng-model="ans.isCorrect" value=true>
-            <label  for="isCorrect{{$index}}">Correct</label>
-            <input   type="radio"  id="isNotCorrect{{$index}}" ng-model="ans.isCorrect" value=false>
-            <label  for="isNotCorrect{{$index}}">Not correct</label>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-info ">
+                <input type="radio" value="freeEntry" ng-model="question.type"
+                       ng-click="freeEntry=true;  oneRight=false; manyRight=false" name="options" id="option1"
+                       autocomplete="off"> Free entry
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" value="oneRight" ng-model="question.type"
+                       ng-click="oneRight=true; freeEntry=false; manyRight=false" name="options" id="option2"
+                       autocomplete="off"> One right option
+            </label>
+            <label class="btn btn-info">
+                <input type="radio" value="manyRight" ng-model="question.type"
+                       ng-click="manyRight=true; oneRight=false; freeEntry=false;" name="options" id="option3"
+                       autocomplete="off"> Many right options
+            </label>
         </div>
-</div>
-        <div ng-show="oneRight||manyRight"><button class="btn btn-default" ng-click="addAnswer(question)">Add answer</button></div>
+
+        <div id="answers" class="form-group">
+            <div ng-show="freeEntry||oneRight||manyRight" ng-repeat="ans in question.answers" class="form-inline">
+                <input class="form-control col-4" type="text" placeholder="Answer" ng-model="ans.body">
+                <div ng-show="oneRight||manyRight" class="form-inline">
+
+                    <!--<div class="btn-group" data-toggle="buttons">-->
+                        <label class="btn btn-info ">
+                            <input type="radio" id="isCorrect{{$index}}" value=true ng-click="updateIsCorrect($index)"
+                                   ng-model="ans.isCorrect" ng-click="freeEntry=true;  oneRight=false; manyRight=false"
+                                   autocomplete="off"> Correct
+                        </label>
+                        <label class="btn btn-info">
+                            <input type="radio" id="isNotCorrect{{$index}}" value=false ng-model="ans.isCorrect"
+                                   ng-click="oneRight=true; freeEntry=false; manyRight=false" autocomplete="off"> Not
+                            correct
+                        </label>
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <div ng-show="oneRight||manyRight">
+            <button class="btn btn-default" ng-click="addAnswer(question)">Add answer</button>
+        </div>
         <button class="btn btn-default" ng-click="save(question)">Save</button>
     </div>
-    <div>
+    <div class="jumbotron">
         <h3>Search question:</h3>
         <input class="form-control" type="text" placeholder="Tags" id="tag" ng-model="tag">
         <button class="btn btn-default" ng-click="getByTag(tag)">Search question</button>
 
-        <h3>Result</h3>
-        <table class="table table-striped">
+        <h3 ng-show="searchResults.length>0">Result</h3>
+        <table ng-show="searchResults.length>0" class="table table-striped">
             <tr>
                 <td>question</td>
                 <td>answers / is correct?</td>
+                <td>type</td>
                 <td>tags</td>
             </tr>
 
@@ -41,17 +69,20 @@
                             <td>{{answer.body}}</td>
                             <td>{{answer.isCorrect}}</td>
                         </tr>
-                    </table></td>
+                    </table>
+                </td>
+                <td>{{quest.type}}</td>
                 <td>{{quest.tags}}</td>
             </tr>
         </table>
     </div>
-    <div>
+    <div class="jumbotron">
         <h3>All questions</h3>
         <table class="table table-striped">
             <tr>
                 <td>question</td>
                 <td>answers / is correct?</td>
+                <td>type</td>
                 <td>tags</td>
                 <td></td>
             </tr>
@@ -64,10 +95,12 @@
                             <td>{{answer.body}}</td>
                             <td>{{answer.isCorrect}}</td>
                             <td>
-                                <div class="btn btn-danger" ng-click="deleteAnswer(answer)">Delete</div>
+                                <div class="btn btn-danger" ng-click="deleteAnswer(quest, $index)">Delete</div>
                             </td>
                         </tr>
-                    </table></td>
+                    </table>
+                </td>
+                <td>{{quest.type}}</td>
                 <td>{{quest.tags}}</td>
                 <td>
                     <div class="btn btn-danger" ng-click="deleteQuestion(quest)">Delete</div>
