@@ -51,8 +51,8 @@ angular.module('myApp')
             $scope.save(quest);
         }
 
-        function getByTag(tag) {
-            $http.get('/api/questions/find-by-tags', {params: {tags: tag}})
+        function getByTag(spec) {
+            $http.get('/api/questions/find-by-tags', {params: spec})
                 .then(function successCallback(response) {
                     $scope.searchResults = response.data;
                 }, function errorCallback(response) {

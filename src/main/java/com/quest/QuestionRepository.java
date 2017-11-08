@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface QuestionRepository extends PagingAndSortingRepository<Question, Long> {
+public interface QuestionRepository extends PagingAndSortingRepository<Question, Long>, QuestionRepositoryCustom {
 
 	List<Question> findByTagsContains(@Param("tags") String tags);
 
 	Question findById(@Param("id") Long id);
 
+	List<Question> findBy(QuestionSpecification specification) ;
 }

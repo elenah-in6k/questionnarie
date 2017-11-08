@@ -49,8 +49,13 @@
     </div>
     <div class="jumbotron">
         <h3>Search question:</h3>
-        <input class="form-control" type="text" placeholder="Tags" id="tag" ng-model="tag">
-        <button class="btn btn-default" ng-click="getByTag(tag)">Search question</button>
+        <div class="form-control">
+            <input type="text" placeholder="question" id="question1" ng-model="spec.oQuestion">
+            <input type="text" placeholder="type" id="type" ng-model="spec.oType">
+            <input type="text" placeholder="tags" id="tag" ng-model="spec.oTag">
+        </div>
+
+        <button class="btn btn-default" ng-click="getByTag(spec)">Search question</button>
 
         <h3 ng-show="searchResults.length>0">Result</h3>
         <table ng-show="searchResults.length>0" class="table table-striped">

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/questions")
 class QuestionController {
@@ -33,8 +35,15 @@ class QuestionController {
 
 	@JsonView(Question.QuestionFull.class)
 	@GetMapping("find-by-tags")
-	public Iterable<Question> searchQuestions(@RequestParam("tags") String tags) {
-		return questionRepository.findByTagsContains(tags);
+	public Iterable<Question> searchQuestions(@RequestParam(required = false) String oQuestion,
+											  @RequestParam(required = false) String oType,
+											  @RequestParam(required = false) String oTag ) {
+		QuestionSpecification specification = new QuestionSpecification();
+		specification.setOquestion(Optional.of(oQuestion));
+		specification.setoType(Optional.of(oType));
+		specification.setoTags(Optional.of(oTag));
+
+		return questionRepository.findBy(specification);
 	}
 
 	@JsonView(Question.QuestionFull.class)
