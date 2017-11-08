@@ -37,6 +37,12 @@ class QuestionController {
 		return questionRepository.findByTagsContains(tags);
 	}
 
+	@JsonView(Question.QuestionFull.class)
+	@GetMapping("{id}")
+	public Question questionById(@PathVariable("id") Long id) {
+		return questionRepository.findById(id);
+	}
+
 	@JsonView(Question.QuestionWithAnswers.class)
 	@GetMapping("without-tags")
 	public Iterable<Question> questionsWithAnswers() {

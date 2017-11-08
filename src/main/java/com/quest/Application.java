@@ -15,6 +15,7 @@ public class Application {
 			question.question = "How are you old?";
 			question.answers.add(new Answer("18", true, question));
 			question.answers.add(new Answer("19", false, question));
+			question.type = "oneRight";
 			question.tags = "years,people";
 			questionRepository.save(question);
 
@@ -25,6 +26,7 @@ public class Application {
 			question1.answers.add(new Answer("Bad", false, question1));
 			question1.answers.add(new Answer("So - so", false, question1));
 			question1.tags = "people";
+			question1.type = "manyRight";
 			questionRepository.save(question1);
 		};
 	}

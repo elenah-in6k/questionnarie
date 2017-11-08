@@ -12,4 +12,6 @@ public interface QuestionRepository extends PagingAndSortingRepository<Question,
 
 	List<Question> findByTagsContains(@Param("tags") String tags);
 
+	Question findById(@Param("id") Long id);
+
 }

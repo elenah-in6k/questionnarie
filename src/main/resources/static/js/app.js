@@ -5,5 +5,9 @@ angular.module("myApp", ["ngRoute"])
             .when("/", {
                 templateUrl : "view/main.html"
                 , controller: "mainCtrl"
+            })
+            .when("/:id", {
+                templateUrl : "view/question.html"
+                , controller: "questionCtrl"
             });
     });

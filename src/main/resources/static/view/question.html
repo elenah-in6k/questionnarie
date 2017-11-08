@@ -1,0 +1,21 @@
+<div class="jumbotron">
+    <h3>{{question.question}}</h3>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>answer</td>
+            <td> is correct?</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="answer in question.answers">
+            <td>{{answer.body}}</td>
+            <td>{{answer.isCorrect}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+    <div>Tags: {{question.tags}}</div>
+    <div>Type: {{question.type}}</div>
+</div>
