@@ -83,6 +83,17 @@
     </div>
     <div class="jumbotron">
         <h3>All questions</h3>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li
+                    ng-class="page.number == 0 ? 'page-item disabled' : 'page-item' ">
+                    <span class="page-link" ng-click="previous()">Previous</span>
+                </li>
+                <li  ng-class="page.number == page.totalPages - 1 ? 'page-item disabled' : 'page-item' ">
+                    <span class="page-link" ng-click="next()">Next</span>
+                </li>
+            </ul>
+        </nav>
         <table class="table table-striped">
             <tr>
                 <td>question</td>

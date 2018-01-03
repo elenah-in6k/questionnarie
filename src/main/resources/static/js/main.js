@@ -9,6 +9,10 @@ angular.module('myApp')
         $scope.addAnswer = addAnswer;
         $scope.updateIsCorrect = updateIsCorrect;
         $scope.init = init;
+        $scope.next = next;
+        $scope.previous = previous;
+
+        $scope.page = { size : 2, number : 0};
 
         $scope.init();
         $scope.getAll();
@@ -20,13 +24,28 @@ angular.module('myApp')
             $scope.oneRight = false;
             $scope.manyRight = false;
         }
+
         function getAll() {
-            $http.get('/api/questions')
+            $http.get('/questions', {
+                    params: {page: $scope.page.number, size: $scope.page.size}
+                }
+            )
                 .then(function successCallback(response) {
-                    $scope.questions = response.data;
+                    $scope.questions = response.data._embedded.questions;
+                    $scope.page = response.data.page;
                 }, function errorCallback(response) {
                 });
         }
+
+        function next() {
+            $scope.page.number = $scope.page.number+1;
+            $scope.getAll();
+        }
+
+        function previous() {
+            $scope.page.number = $scope.page.number-1;
+            $scope.getAll();
+        };
 
         function save(quest) {
             if(quest.type === 'freeEntry') quest.answers[0].isCorrect = true;
