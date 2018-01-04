@@ -12,9 +12,4 @@ public class QuestionRepositoryImpl extends BaseRepository<Question, Integer> {
     public QuestionRepositoryImpl(EntityManager entityManager) {
         super(entityManager);
     }
-
-    List<Question> findBy(QuestionSpecification specification) {
-        CriteriaQuery<Question> userCriteriaQuery = specification.toCriteria(entityManager.getCriteriaBuilder());
-        return entityManager.createQuery(userCriteriaQuery).getResultList();
-    }
 }
