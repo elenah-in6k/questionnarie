@@ -9,22 +9,22 @@ import java.util.List;
 import java.util.Optional;
 
 public class QuestionSpecification implements EntitySpecification<Question> {
-    public Optional<String> oQuestion = Optional.empty();
+    private Optional<String> oQuestion = Optional.empty();
 
-    public Optional<String> oType = Optional.empty();
+    private Optional<String> oType = Optional.empty();
 
-    public Optional<String> oTags = Optional.empty();
+    private Optional<String> oTags = Optional.empty();
 
-    public void setOquestion(Optional<String> oquestionName) {
-        this.oQuestion = oquestionName;
+    public void setQuestion(String question) {
+        this.oQuestion = Optional.ofNullable(question);
     }
 
-    public void setoType(Optional<String> oType) {
-        this.oType = oType;
+    public void setType(String type) {
+        this.oType = Optional.ofNullable(type);
     }
 
-    public void setoTags(Optional<String> oTags) {
-        this.oTags = oTags;
+    public void setTags(String tags) {
+        this.oTags = Optional.ofNullable(tags);
     }
 
     @Override
@@ -40,7 +40,6 @@ public class QuestionSpecification implements EntitySpecification<Question> {
             oTags.ifPresent(tags -> predicateList.add(cb.like(questionEntity.get("tags"), "%" + tags + "%")));
             Predicate mainPredicate = cb.and(predicateList.toArray(new Predicate[predicateList.size()]));
 
-            System.out.println(predicateList.size());
             questionCriteriaQuery.where(mainPredicate);
 
             return questionCriteriaQuery;

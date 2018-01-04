@@ -35,21 +35,14 @@ class QuestionController {
 
 	@JsonView(Question.QuestionFull.class)
 	@GetMapping("find-by-tags")
-	public Iterable<Question> searchQuestions(@RequestParam(required = false) String oQuestion,
-											  @RequestParam(required = false) String oType,
-											  @RequestParam(required = false) String oTag ) {
-		QuestionSpecification specification = new QuestionSpecification();
-		specification.setOquestion(Optional.of(oQuestion));
-		specification.setoType(Optional.of(oType));
-		specification.setoTags(Optional.of(oTag));
-
+	public Iterable<Question> searchQuestions(QuestionSpecification specification) {
 		return questionRepository.findBy(specification);
 	}
 
 	@JsonView(Question.QuestionFull.class)
 	@GetMapping("{id}")
 	public Question questionById(@PathVariable("id") Long id) {
-		return questionRepository.findById(id);
+		return questionRepository.findOne(id);
 	}
 
 	@JsonView(Question.QuestionWithAnswers.class)

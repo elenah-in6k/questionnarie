@@ -72,10 +72,7 @@ angular.module('myApp')
 
         function getByTag(spec) {
             $http.get('/api/questions/find-by-tags', {params: spec})
-                .then(function successCallback(response) {
-                    $scope.searchResults = response.data;
-                }, function errorCallback(response) {
-                });
+                .then(response => $scope.searchResults = response.data);
         }
 
         function addAnswer() {
